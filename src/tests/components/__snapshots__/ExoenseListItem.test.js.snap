@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should expensListItem render correctly 1`] = `
+<dive>
+  <Link
+    to="/edit/1"
+  >
+    <h3>
+      rent
+    </h3>
+  </Link>
+  <p>
+    Amount : 
+    $2,500.00
+    <br />
+    Date : 
+    Jan, 1st 1970
+  </p>
+</dive>
+`;
