@@ -1,4 +1,8 @@
 import { addExpense, removeExpense, editExpense } from "../../actions/expense";
+import configMockStor from "redux-mock-store";
+import thunk from "redux-thunk";
+
+const store = configMockStor(thunk);
 
 test("should setup remove action object", () => {
   const result = removeExpense({ id: "123456" });
