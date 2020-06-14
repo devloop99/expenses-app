@@ -23,7 +23,6 @@ test("should setup add expense action object from provided values ", () => {
   expect(action).toEqual({
     type: "ADD_EXPENSE",
     expense: {
-      id: expect.any(String),
       description: "rent",
       amount: 2500,
       createdAt: 1000,
@@ -37,11 +36,11 @@ test("should setup add expense action object from default value", () => {
   expect(action).toEqual({
     type: "ADD_EXPENSE",
     expense: {
-      id: expect.any(String),
-      description: "",
-      amount: 0,
-      createdAt: 0,
-      note: "",
+      // id: expect.any(String),
+      // description: "",
+      // amount: 0,
+      // createdAt: 0,
+      // note: "",
     },
   });
 });
