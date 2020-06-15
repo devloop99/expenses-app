@@ -14,7 +14,9 @@ export const setStartDate = (stamps = undefined) => ({
   startDate: stamps,
 });
 
-export const setEndDate = (stamps = undefined) => ({
-  type: "END_DATE",
-  startDate: stamps,
-});
+export const setEndDate = (stamps = undefined) => {
+  return {
+    type: "END_DATE",
+    endDate: stamps,
+  };
+};

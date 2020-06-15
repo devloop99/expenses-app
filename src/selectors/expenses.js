@@ -5,6 +5,7 @@ const getVisible = (expense, { text, sortBy, startDate, endDate }) => {
         typeof startDate !== "number" || el.createdAt >= startDate;
 
       const endMatch = typeof endDate !== "number" || el.createdAt <= endDate;
+
       const textMatch =
         el.description.toLowerCase().includes(text) || el.note.includes(text);
 
