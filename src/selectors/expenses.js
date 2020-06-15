@@ -20,5 +20,17 @@ const getVisible = (expense, { text, sortBy, startDate, endDate }) => {
 
   return visible;
 };
+const getTotal = (expenses) => {
+  let total;
+  total = expenses.reduce(
+    (acc, curr) => acc + curr.amount,
 
-export default getVisible;
+    0
+  );
+  return {
+    total,
+    length: expenses.length,
+  };
+};
+
+export { getTotal, getVisible as default };

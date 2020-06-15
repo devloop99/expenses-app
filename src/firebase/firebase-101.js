@@ -28,3 +28,7 @@ export { firebase, database as default };
 // arr.forEach((el) => {
 //   database.ref("expenses").push(el);
 // });
+
+// database.ref().on("value", (snapshot) => {
+//   console.log(snapshot.val());
+// });

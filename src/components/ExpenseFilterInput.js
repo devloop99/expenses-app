@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setText, SortByAmount, SortByDate } from "../actions/filter";
+import { setText, sortByAmount, sortByDate } from "../actions/filter";
 import { DateRangePicker } from "react-dates";
 import moment from "moment";
 import { setEndDate, setStartDate } from "../actions/filter";
 
-class ExpenseFilterInput extends React.Component {
+export class ExpenseFilterInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,17 +15,26 @@ class ExpenseFilterInput extends React.Component {
       endDate: moment().endOf("month"),
     };
   }
-  changeHandler = (e) => {
+  selectChange = (e) => {
     const option = e.target.value;
     this.setState(() => ({ option }));
     if (option === "date") {
-      this.props.dispatch(SortByDate());
+      this.props.sortByDate();
     } else if (option === "amount") {
-      this.props.dispatch(SortByAmount());
+      this.props.sortByAmount();
     }
   };
   dateChange = (focusedInput) => {
     this.setState({ isFocused: focusedInput });
+  };
+  textChange = (e) => {
+    this.props.setText(e.target.value);
+  };
+  onDateChange = ({ startDate, endDate }) => {
+    this.setState(() => ({ startDate }));
+    this.setState(() => ({ endDate }));
+    this.props.setStartDate(startDate ? startDate.valueOf() : 0);
+    this.props.setEndDate(endDate ? endDate.valueOf() : undefined);
   };
   render() {
     return (
@@ -33,11 +42,9 @@ class ExpenseFilterInput extends React.Component {
         <input
           type="text"
           value={this.props.filters.text}
-          onChange={(e) => {
-            this.props.dispatch(setText(e.target.value));
-          }}
+          onChange={this.textChange}
         />
-        <select value={this.state.option} onChange={this.changeHandler}>
+        <select value={this.state.option} onChange={this.selectChange}>
           <option value="amount">Amount</option>
           <option value="date">Date</option>
         </select>
@@ -45,16 +52,7 @@ class ExpenseFilterInput extends React.Component {
           startDate={this.state.startDate} // momentPropTypes.momentObj or null,
           endDate={this.state.endDate} // momentPropTypes.momentObj or null,
           endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-          onDatesChange={({ startDate, endDate }) => {
-            this.setState(() => ({ startDate }));
-            this.setState(() => ({ endDate }));
-            this.props.dispatch(
-              setStartDate(startDate ? startDate.valueOf() : 0)
-            );
-            this.props.dispatch(
-              setEndDate(endDate ? endDate.valueOf() : undefined)
-            );
-          }} // PropTypes.func.isRequired,
+          onDatesChange={this.onDateChange} // PropTypes.func.isRequired,
           focusedInput={this.state.isFocused} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
           onFocusChange={this.dateChange} // PropTypes.func.isRequired,
           numberOfMonths={1}
@@ -71,9 +69,19 @@ const mapStateToProps = (state) => {
     filters: state.filters,
   };
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    sortByAmount: () => dispatch(sortByAmount()),
+    sortByDate: () => dispatch(sortByDate()),
+    setText: (value) => dispatch(setText(value)),
+    setStartDate: (startDate) => dispatch(setStartDate(startDate)),
+    setEndDate: (endDate) => dispatch(setEndDate(endDate)),
+  };
+};
 
-const ExpenseFilterInputConnected = connect(mapStateToProps)(
-  ExpenseFilterInput
-);
+const ExpenseFilterInputConnected = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ExpenseFilterInput);
 
 export default ExpenseFilterInputConnected;

@@ -1,7 +1,10 @@
 import React from "react";
 import ExpenseForme from "./ExpenseForme";
 import { connect } from "react-redux";
-import { editExpense, removeExpense } from "../actions/expense";
+import {
+  startEditExpense as editExpense,
+  startRemoveExpense as removeExpense,
+} from "../actions/expense";
 
 class EditExpensePage extends React.Component {
   constructor(props) {
@@ -18,6 +21,7 @@ class EditExpensePage extends React.Component {
   };
   onRemove = () => {
     console.log("loading rm ....");
+    console.log(this.props.match.params.id);
 
     this.props.dispatch(removeExpense({ id: this.props.match.params.id }));
     this.props.history.push("/");

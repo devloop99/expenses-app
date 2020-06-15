@@ -5,7 +5,8 @@ import moment from "moment";
 
 //5000
 //500.55
-const formatNum = (num) => {
+//formatting function
+export const formatNum = (num) => {
   let arr = num.toFixed(2).split(".");
   if (arr[0].length > 3) {
     let den = arr[0];

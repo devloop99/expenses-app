@@ -2,10 +2,10 @@ export const setText = (text = "") => ({
   type: "SET_TEXT",
   text,
 });
-export const SortByDate = () => ({
+export const sortByDate = () => ({
   type: "SORT_BY_DATE",
 });
-export const SortByAmount = () => ({
+export const sortByAmount = () => ({
   type: "SORT_BY_AMOUNT",
 });
 

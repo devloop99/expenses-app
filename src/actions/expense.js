@@ -19,10 +19,21 @@ export const startAddExpense = (expense) => {
   };
 };
 export const removeExpense = ({ id }) => {
-  console.log(id, "deleted");
   return {
     type: "REMOVE_EXPENSE",
     id,
+  };
+};
+
+export const startRemoveExpense = ({ id }) => {
+  console.log("im called");
+  return (dispatch) => {
+    database
+      .ref(`expenses/${id}`)
+      .remove()
+      .then(() => {
+        dispatch(removeExpense({ id }));
+      });
   };
 };
 
@@ -31,3 +42,16 @@ export const editExpense = (expense, id) => ({
   id,
   expense,
 });
+
+export const startEditExpense = (expense, id) => {
+  return (dispatch) => {
+    console.log(expense);
+
+    database
+      .ref(`expenses/${id}`)
+      .update(expense)
+      .then(() => {
+        dispatch(editExpense(expense, id));
+      });
+  };
+};
