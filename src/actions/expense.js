@@ -6,11 +6,10 @@ export const addExpense = (expense = {}) => ({
 });
 
 export const startAddExpense = (expense) => {
-  console.log("added");
   return (dispatch) => {
     const { description = "", note = "", amount = 0, createdAt = 0 } = expense;
     expense = { description, amount, note, createdAt };
-    database
+    return database
       .ref("expenses")
       .push(expense)
       .then((ref) => {
